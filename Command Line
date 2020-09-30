@@ -1,0 +1,82 @@
+import java.util.*;
+
+class InvalidDateException extends Exception{
+	int no;
+	int flag;
+	InvalidDateException(int x,int flag)
+	{
+		no=x;
+		this.flag=flag;
+	//System.out.println("Object is created");
+	}
+	public String toString(){
+	//return "Invalid Date Exception : Aise Date Thodi Hota Hai?"+no;
+	if (flag==1)
+		return"Invalid Day :"+no;
+		else if(flag==2)
+		return"Invalid Month :"+no;
+	else return" Invalid";
+	}
+}
+class MyDate{
+	private int dd;
+	private int mm;
+	private int yy;
+	Scanner sc=new Scanner(System.in);
+
+	public void accept()
+	{
+		System.out.println("Enter A Date");
+		dd=sc.nextInt();
+		System.out.println("Enter A Month");
+		mm=sc.nextInt();
+		System.out.println("Enter A Year");
+		yy=sc.nextInt();
+		try{
+			
+		 if(mm==1 || mm==3 || mm==5 || mm==7 || mm==8 || mm==10 || mm==12)
+		 {if(dd>=1&&dd<=31)
+			System.out.println(this);
+		else 
+			throw new InvalidDateException(dd,1);
+			 
+		 }else if(mm==4 || mm==6 || mm== 9 || mm==11)
+		 {
+			 if(dd>=1&&dd<=30)
+			System.out.println(this);
+		else 
+			throw new InvalidDateException(dd,1);
+		 }else if(mm==2){
+			if((yy%4==0 && yy%100!=0 )|| yy%400==0){
+				if(dd>=1 && dd<=29)
+				System.out.println(this);
+				else 
+					throw new InvalidDateException(dd,1);
+			}
+			 
+		 }else 
+			 throw new InvalidDateException(mm,2);
+		}catch(InvalidDateException e1)
+		{
+			System.out.println("You Entered  Invalid   Date");
+		}
+	}
+	
+	public String toString(){
+		return +dd+"/"+mm+"/"+yy;
+	}
+
+	/*public void display()
+	{
+		System.out.println("DOB: "+dd+"/"+mm+"//"+yy);
+	}*/
+}
+class Main{
+	public static void main(String args[])
+	{
+		MyDate ob=new MyDate();
+		ob.accept();
+		System.out.println(ob);
+		//ob.display();
+	}
+}
